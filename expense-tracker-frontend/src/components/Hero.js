@@ -8,7 +8,7 @@ const Hero = () => {
     <section 
       className="text-center d-flex align-items-center justify-content-center" 
       style={{ 
-        minHeight: "95vh",  
+        minHeight: "98vh",  
         background: "linear-gradient(to bottom, #E3FDFD, #CBF1F5)", 
         color: "#2C3333", 
         padding: "40px 20px"  
