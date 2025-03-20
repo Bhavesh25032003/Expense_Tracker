@@ -9,9 +9,17 @@ export const useSidebar = () => useContext(SidebarContext);
 // Provider Component
 export const SidebarProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ✅ Added modal state
 
   return (
-    <SidebarContext.Provider value={{ isSidebarOpen, setIsSidebarOpen }}>
+    <SidebarContext.Provider
+      value={{
+        isSidebarOpen,
+        setIsSidebarOpen,
+        isModalOpen,
+        setIsModalOpen, // ✅ Exposing modal functions
+      }}
+    >
       {children}
     </SidebarContext.Provider>
   );
