@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, InputGroup } from "react-bootstrap";
+import axios from "axios";
+import { useEffect } from "react";
+
+
 
 const IncomeModal = ({ isOpen, onClose }) => {
   const [incomeData, setIncomeData] = useState({
+    email: localStorage.getItem("userEmail") || "", // ✅ Get email from localStorage
     sourceCategory: "",
     amount: "",
     paymentMethod: "",
     date: "",
     notes: "",
   });
+  
 
   const [error, setError] = useState("");
 
@@ -22,17 +28,43 @@ const IncomeModal = ({ isOpen, onClose }) => {
       setError("");
     }
   };
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+    console.log("Retrieved Email from localStorage:", userEmail); // ✅ Debug log
+    if (userEmail) {
+      setIncomeData((prev) => ({ ...prev, email: userEmail }));
+    }
+  }, []);
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!incomeData.amount || incomeData.amount <= 0) {
-      setError("Please enter a valid income amount.");
+  
+    const userEmail = localStorage.getItem("userEmail");
+    if (!userEmail) {
+      console.error("❌ No user email found! Please log in.");
       return;
     }
-    console.log("Income Added:", incomeData);
-    onClose();
+  
+    const payload = {
+      email: userEmail,
+      source: incomeData.sourceCategory || incomeData.source, // ✅ Ensures correct field name
+      amount: Number(incomeData.amount),
+      date: incomeData.date,
+      notes: incomeData.notes,
+      paymentMethod: incomeData.paymentMethod,
+    };
+  
+    console.log("Payload being sent:", payload); // ✅ Debugging payload
+  
+    try {
+      await axios.post("http://localhost:5000/api/income/add", payload);
+      onClose(); // Close modal after success
+    } catch (error) {
+      console.error("❌ Error adding income:", error);
+    }
   };
-
+  
   return (
     <Modal show={isOpen} onHide={onClose} centered>
       {/* Header with Gradient */}
@@ -91,8 +123,8 @@ const IncomeModal = ({ isOpen, onClose }) => {
               <option value="Rental Income">🏠 Rental Income</option>
               <option value="Interest Earned">🏦 Interest Earned</option>
               <option value="Bonuses & Commissions">🎯 Bonuses & Commissions</option>
-              <option value="Pension & Retirement Funds">🛡️ Pension & Retirement Funds</option>
-              <option value="Government Benefits">🏛️ Government Benefits</option>
+              <option value="Pension & Retirement Funds">🛡 Pension & Retirement Funds</option>
+              <option value="Government Benefits">🏛 Government Benefits</option>
               <option value="Side Hustles">🛒 Side Hustles</option>
               <option value="Gifts & Donations Received">🎁 Gifts & Donations Received</option>
               <option value="Tax Refunds">💰 Tax Refunds</option>

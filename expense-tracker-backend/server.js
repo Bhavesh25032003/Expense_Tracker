@@ -6,6 +6,7 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true })); // ✅ Ensures form data parsing
 
 // Connect to MongoDB using the MONGO_URI from .env
 mongoose.connect(process.env.MONGO_URI)
@@ -15,6 +16,12 @@ mongoose.connect(process.env.MONGO_URI)
 // Routes
 app.use("/api/auth", require("./routes/auth"));
 
+const incomeRoutes = require("./routes/income"); // ✅ Check the path!
+app.use("/api/income", incomeRoutes); // ✅ Make sure this is present
+
+const expenseRoutes = require("./routes/expense"); // ✅ Check the path!
+app.use("/api/expense", expenseRoutes); // ✅ Make sure this is present
+
 // Start Server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

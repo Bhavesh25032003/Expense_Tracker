@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, InputGroup } from "react-bootstrap";
+import axios from "axios";
+import { useEffect } from "react";
 
 const ExpenseModal = ({ isOpen, onClose }) => {
   const [expenseData, setExpenseData] = useState({
+    email: localStorage.getItem("userEmail") || "", // ✅ Get email from localStorage
     category: "",
     amount: "",
     paymentMethod: "",
@@ -23,15 +26,43 @@ const ExpenseModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!expenseData.amount || expenseData.amount <= 0) {
-      setError("Please enter a valid expense amount.");
-      return;
-    }
-    console.log("Expense Added:", expenseData);
-    onClose();
-  };
+  useEffect(() => {
+      const userEmail = localStorage.getItem("userEmail");
+      console.log("Retrieved Email from localStorage:", userEmail); // ✅ Debug log
+      if (userEmail) {
+        setExpenseData((prev) => ({ ...prev, email: userEmail }));
+      }
+    }, []);
+  
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+    
+      const userEmail = localStorage.getItem("userEmail");
+      if (!userEmail) {
+        console.error("❌ No user email found! Please log in.");
+        return;
+      }
+    
+      const payload = {
+        email: userEmail,
+        source: expenseData.category || expenseData.source, // ✅ Ensures correct field name
+        amount: Number(expenseData.amount),
+        date: expenseData.date,
+        notes: expenseData.notes,
+        paymentMethod: expenseData.paymentMethod,
+      };
+    
+      console.log("Payload being sent:", payload); // ✅ Debugging payload
+    
+      try {
+        await axios.post("http://localhost:5000/api/expense/minus", payload);
+        onClose(); // Close modal after success
+      } catch (error) {
+        console.error("❌ Error adding Expense:", error);
+      }
+    };
+    
 
   return (
     <Modal show={isOpen} onHide={onClose} centered>
