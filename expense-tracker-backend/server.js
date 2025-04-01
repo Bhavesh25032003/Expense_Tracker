@@ -22,6 +22,9 @@ app.use("/api/income", incomeRoutes); // ✅ Make sure this is present
 const expenseRoutes = require("./routes/expense"); // ✅ Check the path!
 app.use("/api/expense", expenseRoutes); // ✅ Make sure this is present
 
+const transactionsRoute = require("./routes/transactions"); // ✅ Import new transactions route
+app.use("/transactions", transactionsRoute); // ✅ Use the transactions route
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

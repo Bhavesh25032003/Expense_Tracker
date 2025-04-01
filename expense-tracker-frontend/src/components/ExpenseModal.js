@@ -92,7 +92,7 @@ const ExpenseModal = ({ isOpen, onClose }) => {
         style={{
           backgroundColor: "rgba(255, 235, 230, 0.9)", // Soft Glassmorphism
           backdropFilter: "blur(12px)", // Blurred effect
-          borderRadius: "12px",
+    
           padding: "20px",
         }}
       >
@@ -109,7 +109,10 @@ const ExpenseModal = ({ isOpen, onClose }) => {
                 borderRadius: "8px",
                 border: "2px solid #FF6A88",
                 padding: "10px",
+                transition: "0.3s",
               }}
+              onFocus={(e) => (e.target.style.borderColor = "#FF6A88")}
+              onBlur={(e) => (e.target.style.borderColor = "#FF6A88")}
             >
               <option value="">Select Category</option>
               <option value="Rent/Mortgage">🏠 Rent/Mortgage</option>
@@ -148,7 +151,10 @@ const ExpenseModal = ({ isOpen, onClose }) => {
                   borderRadius: "8px",
                   border: "2px solid #FF6A88",
                   padding: "10px",
+                  transition: "0.3s",
                 }}
+                onFocus={(e) => (e.target.style.borderColor = "#FF6A88")}
+                onBlur={(e) => (e.target.style.borderColor = "#FF6A88")}
               />
             </InputGroup>
             {error && <small className="text-danger">{error}</small>}
@@ -166,7 +172,10 @@ const ExpenseModal = ({ isOpen, onClose }) => {
                 borderRadius: "8px",
                 border: "2px solid #FF6A88",
                 padding: "10px",
+                transition: "0.3s",
               }}
+              onFocus={(e) => (e.target.style.borderColor = "#FF6A88")}
+              onBlur={(e) => (e.target.style.borderColor = "#FF6A88")}
             >
               <option value="">Select Method</option>
               <option value="UPI">📲 UPI (Google Pay, PhonePe, Paytm)</option>
@@ -191,6 +200,7 @@ const ExpenseModal = ({ isOpen, onClose }) => {
                 borderRadius: "8px",
                 border: "2px solid #FF6A88",
                 padding: "10px",
+                transition: "0.3s",
               }}
             />
           </Form.Group>
@@ -209,6 +219,7 @@ const ExpenseModal = ({ isOpen, onClose }) => {
                 borderRadius: "8px",
                 border: "2px solid #FF6A88",
                 padding: "10px",
+                transition: "0.3s",
               }}
             />
           </Form.Group>

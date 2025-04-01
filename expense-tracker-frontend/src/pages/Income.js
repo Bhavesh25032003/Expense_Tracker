@@ -38,47 +38,51 @@ const Income = () => {
             flexDirection: "column",
             gap: "10px",
             zIndex: "1000",
-          }}
-        >
-          {/* Add Income Button */}
-          <button
-            className="btn btn-lg rounded-circle shadow"
+        }}>
+        <button
+          className="btn btn-lg rounded-circle shadow"
             style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "#f1aeb5",
+              width: "60px",
+              height: "60px",
+              backgroundColor: "#A3D8D5", // Pastel teal color
               color: "#3A506B",
               border: "none",
-              fontSize: "22px",
+              fontSize: "24px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-            }}
-            onClick={() => setIncomeModalOpen(true)}
-          >
-            <FaPlus />
-          </button>
-
-          {/* Add Expense Button */}
-          <button
-            className="btn btn-lg rounded-circle shadow"
-            style={{
-              width: "50px",
-              height: "50px",
-              backgroundColor: "#F8EDEB",
-              color: "#3A506B",
-              border: "none",
-              fontSize: "22px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onClick={() => setExpenseModalOpen(true)}
-          >
-            <FaMinus />
-          </button>
-        </div>
-
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              transition: "transform 0.3s",
+                    }}
+                    onClick={() => setIncomeModalOpen(true)}
+                    onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")}
+                    onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+                  >
+                    <FaPlus />
+                  </button>
+        
+                  <button
+                    className="btn btn-lg rounded-circle shadow"
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                      backgroundColor: "#F1C6B1", // Pastel peach color
+                      color: "#3A506B",
+                      border: "none",
+                      fontSize: "24px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                      transition: "transform 0.3s",
+                    }}
+                    onClick={() => setExpenseModalOpen(true)}
+                    onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")}
+                    onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+                  >
+                    <FaMinus />
+                  </button>
+                </div>
         {/* Modals */}
         <IncomeModal isOpen={isIncomeModalOpen} onClose={() => setIncomeModalOpen(false)} />
         <ExpenseModal isOpen={isExpenseModalOpen} onClose={() => setExpenseModalOpen(false)} />

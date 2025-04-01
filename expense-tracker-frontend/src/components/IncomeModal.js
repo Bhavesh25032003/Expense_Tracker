@@ -3,8 +3,6 @@ import { Modal, Button, Form, InputGroup } from "react-bootstrap";
 import axios from "axios";
 import { useEffect } from "react";
 
-
-
 const IncomeModal = ({ isOpen, onClose }) => {
   const [incomeData, setIncomeData] = useState({
     email: localStorage.getItem("userEmail") || "", // ✅ Get email from localStorage
@@ -14,7 +12,6 @@ const IncomeModal = ({ isOpen, onClose }) => {
     date: "",
     notes: "",
   });
-  
 
   const [error, setError] = useState("");
 
@@ -28,6 +25,7 @@ const IncomeModal = ({ isOpen, onClose }) => {
       setError("");
     }
   };
+
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail");
     console.log("Retrieved Email from localStorage:", userEmail); // ✅ Debug log
@@ -36,16 +34,15 @@ const IncomeModal = ({ isOpen, onClose }) => {
     }
   }, []);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const userEmail = localStorage.getItem("userEmail");
     if (!userEmail) {
       console.error("❌ No user email found! Please log in.");
       return;
     }
-  
+
     const payload = {
       email: userEmail,
       source: incomeData.sourceCategory || incomeData.source, // ✅ Ensures correct field name
@@ -54,9 +51,9 @@ const IncomeModal = ({ isOpen, onClose }) => {
       notes: incomeData.notes,
       paymentMethod: incomeData.paymentMethod,
     };
-  
+
     console.log("Payload being sent:", payload); // ✅ Debugging payload
-  
+
     try {
       await axios.post("http://localhost:5000/api/income/add", payload);
       onClose(); // Close modal after success
@@ -64,7 +61,7 @@ const IncomeModal = ({ isOpen, onClose }) => {
       console.error("❌ Error adding income:", error);
     }
   };
-  
+
   return (
     <Modal show={isOpen} onHide={onClose} centered>
       {/* Header with Gradient */}
@@ -72,7 +69,7 @@ const IncomeModal = ({ isOpen, onClose }) => {
         closeButton
         className="text-center"
         style={{
-          background: "linear-gradient(to right, #F8B195, #F67280, #F6A89E)",
+          background: "linear-gradient(to right, #A3D8D5,rgb(13, 240, 225), #A3D8D5)", // Pastel Teal Gradient
           color: "white",
         }}
       >
@@ -91,9 +88,8 @@ const IncomeModal = ({ isOpen, onClose }) => {
       {/* Glassmorphism Modal Body */}
       <Modal.Body
         style={{
-          backgroundColor: "rgba(255, 230, 220, 0.9)", // Soft pastel peach glass effect
+          backgroundColor: "rgba(163, 216, 213, 0.9)", // Soft pastel teal glass effect
           backdropFilter: "blur(12px)",
-          borderRadius: "12px",
           padding: "20px",
         }}
       >
@@ -108,12 +104,12 @@ const IncomeModal = ({ isOpen, onClose }) => {
               required
               style={{
                 borderRadius: "8px",
-                border: "2px solid #F6A89E",
+                border: "2px solid #A3D8D5", // Pastel Teal Border
                 padding: "10px",
                 transition: "0.3s",
               }}
-              onFocus={(e) => (e.target.style.borderColor = "#F67280")}
-              onBlur={(e) => (e.target.style.borderColor = "#F6A89E")}
+              onFocus={(e) => (e.target.style.borderColor = "#A3D8D5")}
+              onBlur={(e) => (e.target.style.borderColor = "#A3D8D5")}
             >
               <option value="">Select Source</option>
               <option value="Salary/Wages">💼 Salary/Wages</option>
@@ -138,7 +134,7 @@ const IncomeModal = ({ isOpen, onClose }) => {
           <Form.Group className="mb-3">
             <Form.Label style={{ fontWeight: "bold" }}>Amount</Form.Label>
             <InputGroup>
-              <InputGroup.Text style={{ backgroundColor: "#F67280", color: "white" }}>₹</InputGroup.Text>
+              <InputGroup.Text style={{ backgroundColor: "#A3D8D5"}}>₹</InputGroup.Text>
               <Form.Control
                 type="number"
                 name="amount"
@@ -148,12 +144,12 @@ const IncomeModal = ({ isOpen, onClose }) => {
                 required
                 style={{
                   borderRadius: "8px",
-                  border: "2px solid #F6A89E",
+                  border: "2px solid #A3D8D5", // Pastel Teal Border
                   padding: "10px",
                   transition: "0.3s",
                 }}
-                onFocus={(e) => (e.target.style.borderColor = "#F67280")}
-                onBlur={(e) => (e.target.style.borderColor = "#F6A89E")}
+                onFocus={(e) => (e.target.style.borderColor = "#A3D8D5")}
+                onBlur={(e) => (e.target.style.borderColor = "#A3D8D5")}
               />
             </InputGroup>
             {error && <small className="text-danger">{error}</small>}
@@ -169,12 +165,12 @@ const IncomeModal = ({ isOpen, onClose }) => {
               required
               style={{
                 borderRadius: "8px",
-                border: "2px solid #F6A89E",
+                border: "2px solid #A3D8D5", // Pastel Teal Border
                 padding: "10px",
                 transition: "0.3s",
               }}
-              onFocus={(e) => (e.target.style.borderColor = "#F67280")}
-              onBlur={(e) => (e.target.style.borderColor = "#F6A89E")}
+              onFocus={(e) => (e.target.style.borderColor = "#A3D8D5")}
+              onBlur={(e) => (e.target.style.borderColor = "#A3D8D5")}
             >
               <option value="">Select Payment Method</option>
               <option value="Cash">💵 Cash</option>
@@ -197,7 +193,7 @@ const IncomeModal = ({ isOpen, onClose }) => {
               required
               style={{
                 borderRadius: "8px",
-                border: "2px solid #F6A89E",
+                border: "2px solid #A3D8D5", // Pastel Teal Border
                 padding: "10px",
                 transition: "0.3s",
               }}
@@ -216,7 +212,7 @@ const IncomeModal = ({ isOpen, onClose }) => {
               onChange={handleChange}
               style={{
                 borderRadius: "8px",
-                border: "2px solid #F6A89E",
+                border: "2px solid #A3D8D5", // Pastel Teal Border
                 padding: "10px",
                 transition: "0.3s",
               }}
@@ -232,9 +228,9 @@ const IncomeModal = ({ isOpen, onClose }) => {
                 backgroundColor: "white",
                 color: "black",
                 fontWeight: "bold",
-                border: "2px solid #F67280",
+                border: "2px solid rgb(13, 240, 225)",
               }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = "#F67280")}
+              onMouseOver={(e) => (e.target.style.backgroundColor = "rgb(218, 209, 209)")}
               onMouseOut={(e) => (e.target.style.backgroundColor = "white")}
             >
               Cancel
@@ -245,13 +241,13 @@ const IncomeModal = ({ isOpen, onClose }) => {
               variant="primary"
               disabled={!!error}
               style={{
-                backgroundColor: "#F67280",
+                backgroundColor: "rgb(13, 240, 225)",
                 border: "none",
                 color: "white",
                 fontWeight: "bold",
               }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = "#f1aeb5")}
-              onMouseOut={(e) => (e.target.style.backgroundColor = "#FF6A88")}              
+              onMouseOver={(e) => (e.target.style.backgroundColor = "#A3D8D5")}
+              onMouseOut={(e) => (e.target.style.backgroundColor = "rgb(13, 240, 225)")}
             >
               Add Income
             </Button>
