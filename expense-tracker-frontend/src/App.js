@@ -10,7 +10,6 @@ import Dashboard from "./pages/Dashboard";
 import Income from "./pages/Income";
 import Expenses from "./pages/Expenses";
 import Transactions from "./pages/Transactions";
-import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function App() {
           <Route path="/income" element={<Income />} />
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/transactions" element={<Transactions />} />
-          <Route path="/settings" element={<Settings />} />
         </Routes>
       </Router>
     </SidebarProvider>

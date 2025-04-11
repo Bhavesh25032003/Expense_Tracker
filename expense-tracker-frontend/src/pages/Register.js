@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // For redirection
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const navigate = useNavigate(); // Redirect after successful registration
@@ -10,7 +12,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [showPasswordRules, setShowPasswordRules] = useState(false);
   const [passwordValidations, setPasswordValidations] = useState({
     length: false,
@@ -33,7 +34,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!username || !email || !password || !confirmPassword) {
       setError("All fields are required!");
       return;
@@ -59,12 +60,12 @@ const Register = () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
 
-      setSuccess("Registration successful! Redirecting to login...");
+      toast.success("Registration successful! Redirecting to login...");
       setError("");
-      
+
       setTimeout(() => {
         navigate("/login");
-      }, 2000);
+      }, 3000); // Redirect after 3 seconds
     } catch (err) {
       setError(err.message);
     }
@@ -76,7 +77,6 @@ const Register = () => {
         <h3 className="text-center fw-bold" style={{ color: "#2C3333" }}>Register</h3>
 
         {error && <div className="alert alert-danger text-center py-2">{error}</div>}
-        {success && <div className="alert alert-success text-center py-2">{success}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -154,6 +154,19 @@ const Register = () => {
           </a>
         </p>
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

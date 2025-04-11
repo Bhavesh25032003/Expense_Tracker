@@ -10,6 +10,7 @@ const IncomeModal = ({ isOpen, onClose }) => {
     amount: "",
     paymentMethod: "",
     date: "",
+    time: "",
     notes: "",
   });
 
@@ -43,11 +44,14 @@ const IncomeModal = ({ isOpen, onClose }) => {
       return;
     }
 
+    const currentTime = new Date().toLocaleTimeString();
+
     const payload = {
       email: userEmail,
       source: incomeData.sourceCategory || incomeData.source, // ✅ Ensures correct field name
       amount: Number(incomeData.amount),
       date: incomeData.date,
+      time: currentTime,
       notes: incomeData.notes,
       paymentMethod: incomeData.paymentMethod,
     };

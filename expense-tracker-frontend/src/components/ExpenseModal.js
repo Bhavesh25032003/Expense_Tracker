@@ -10,6 +10,7 @@ const ExpenseModal = ({ isOpen, onClose }) => {
     amount: "",
     paymentMethod: "",
     date: "",
+    time: "",
     notes: "",
   });
 
@@ -43,12 +44,15 @@ const ExpenseModal = ({ isOpen, onClose }) => {
         console.error("❌ No user email found! Please log in.");
         return;
       }
+
+      const currentTime = new Date().toLocaleTimeString();
     
       const payload = {
         email: userEmail,
         source: expenseData.category || expenseData.source, // ✅ Ensures correct field name
         amount: Number(expenseData.amount),
         date: expenseData.date,
+        time: currentTime,
         notes: expenseData.notes,
         paymentMethod: expenseData.paymentMethod,
       };

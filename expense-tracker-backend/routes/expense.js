@@ -6,17 +6,20 @@ router.post("/minus", async (req, res) => {
     try {
       console.log("📩 Received payload in backend:", req.body); // ✅ Log received data
   
-      const { email, source, amount, date, notes, paymentMethod } = req.body;
+      const { email, source, amount, date, notes,time, paymentMethod } = req.body;
   
-      if (!email || !source || !amount || !date) {
+      if (!email || !source || !amount || !date || !time) {
         return res.status(400).json({ error: "All fields are required!" });
       }
-  
+      
+      const formattedDate = new Date(date).toISOString().split("T")[0];
+
       const newExpense = new AddExpense({
         email, // ✅ Ensure email is added
         source,
         amount,
-        date,
+        date: formattedDate,
+        time,
         notes,
         paymentMethod,
       });

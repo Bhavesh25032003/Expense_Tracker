@@ -1,5 +1,5 @@
 import React from "react";
-import { FaBars, FaHome, FaWallet, FaShoppingCart, FaHistory, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaHome, FaWallet, FaShoppingCart, FaHistory, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSidebar } from "../context/SidebarContext";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -72,7 +72,6 @@ const Sidebar = () => {
         <SidebarItem icon={<FaWallet />} text="Income" path="/income" />
         <SidebarItem icon={<FaShoppingCart />} text="Expenses" path="/expenses" />
         <SidebarItem icon={<FaHistory />} text="Transactions" path="/transactions" />
-        <SidebarItem icon={<FaCog />} text="Settings" path="/settings" />
       </ul>
 
       {/* Logout Button - Stays at Bottom */}
